@@ -62,19 +62,8 @@ class UserController extends Controller
         ]);
 
         $user->update($request->all());
-
-        // Remove existing role permissions
-        $permissionsToRemove = Permission::whereIn('id', $user->permissions->pluck('id'))
-            ->whereIn('id', $request->input('permissions', []))
-            ->get();
-
-        $user->revokePermissionTo($permissionsToRemove);
-
-        // Assign new role permissions
         $user->syncPermissions($request->input('permissions', []));
 
-//        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
-
-        return to_route('users.index', compact('user'));
+        return to_route('users.edit', compact('user'));
     }
 }
