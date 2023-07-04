@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CircularController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:Circular')->only('create');
+    }
+
     /**
      * Display a listing of the resource.
      */
