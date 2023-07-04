@@ -12,9 +12,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles', 'permissions')->get();
         return view('users.index', compact('users'));
     }
+
     //
     public function create()
     {
@@ -44,5 +45,36 @@ class UserController extends Controller
         session()->flash('status', 'User has been successfully added into database.');
 
         return to_route('users.index');
+    }
+
+    public function edit(User $user, Request $request)
+    {
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(User $user, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'permissions' => 'array',
+            'permissions.*' => 'exists:permissions,id',
+        ]);
+
+        $user->update($request->all());
+
+        // Remove existing role permissions
+        $permissionsToRemove = Permission::whereIn('id', $user->permissions->pluck('id'))
+            ->whereIn('id', $request->input('permissions', []))
+            ->get();
+
+        $user->revokePermissionTo($permissionsToRemove);
+
+        // Assign new role permissions
+        $user->syncPermissions($request->input('permissions', []));
+
+//        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+        return to_route('users.index', compact('user'));
     }
 }

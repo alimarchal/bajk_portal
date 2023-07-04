@@ -43,7 +43,7 @@
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                 {{ $permission->name }}
                                             </span>
-                                    @endforeach
+                                @endforeach
                             </th>
                             <td class="border px-2 py-2 border-black font-medium text-black dark:text-white text-center">
                                  <div class="flex items-center space-x-2">

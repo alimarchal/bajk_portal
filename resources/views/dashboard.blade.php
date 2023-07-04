@@ -124,13 +124,13 @@
         <script>
 
             var options = {
-                series: [44, 55, 13, 43, 22],
+                series: [@foreach($total_group_by_division as $division) {{$division->total}}, @endforeach],
                 chart: {
                     width: 500,
                     height: 300,
                     type: 'pie',
                 },
-                labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                labels: [@foreach($total_group_by_division as $division) '{{$division->short_name}}', @endforeach],
                 responsive: [{
                     breakpoint: 480,
                     options: {
@@ -150,8 +150,8 @@
 
             var options2 = {
                 series: [{
-                    name: 'Net Profit',
-                    data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+                    name: 'Total    ',
+                    data: [@foreach($total_circular as $circular) {{$circular->total_count}}, @endforeach]
                 }],
                 chart: {
                     type: 'bar',
@@ -173,11 +173,11 @@
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                    categories: [@foreach($total_circular as $circular) '{{$circular->month}}', @endforeach],
                 },
                 yaxis: {
                     title: {
-                        text: 'Rs. (millions)'
+                        text: 'Total. (Circulars) last 6 months'
                     }
                 },
                 fill: {
@@ -186,7 +186,7 @@
                 tooltip: {
                     y: {
                         formatter: function (val) {
-                            return "Rs. " + val + " millions"
+                            return "" + val + " "
                         }
                     }
                 }
