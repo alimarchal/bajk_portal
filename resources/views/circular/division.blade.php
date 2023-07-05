@@ -22,7 +22,7 @@
                     @foreach($division->circulars as $circular)
                         <h4 class="mt-2 hover:underline text-1xl font-medium text-blue-500">
                             <a href="{{\Illuminate\Support\Facades\Storage::url($circular->document)}}" target="_blank">
-                                {{$circular->circular_no}} - {{ $circular->title }} - {{\Carbon\Carbon::parse($circular->created_at)->format('d-M-Y')}}
+                                {{$circular->circular_no}} - {{ $circular->title }} - {{\Carbon\Carbon::parse($circular->created_at)->format('d-M-Y')}} By {{ \App\Models\User::find($circular->user_id)->name }}
                             </a>
                         </h4>
                         <p class="mt-2 mb-2 text-black leading-relaxed">

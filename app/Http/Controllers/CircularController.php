@@ -13,7 +13,7 @@ class CircularController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:Circular')->only('create');
+        $this->middleware('permission:Create Circular')->only('create');
     }
 
     /**

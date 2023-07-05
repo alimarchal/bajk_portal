@@ -15,6 +15,11 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('permission:Create Events')->only('create');
+    }
     public function index()
     {
         $events = Event::all();

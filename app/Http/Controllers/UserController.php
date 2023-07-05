@@ -10,6 +10,12 @@ use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('role:Super-Admin')->only(['create','index','store','edit','update']);
+    }
+
     public function index()
     {
         $users = User::with('roles', 'permissions')->get();
@@ -28,6 +34,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'division_id' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|exists:roles,id',
@@ -36,6 +43,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'division_id' => $request->division_id,
             'password' => Hash::make($request->password),
         ]);
 
@@ -56,6 +64,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
+            'division_id' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'permissions' => 'array',
             'permissions.*' => 'exists:permissions,id',
@@ -64,6 +73,7 @@ class UserController extends Controller
         $user->update($request->all());
         $user->syncPermissions($request->input('permissions', []));
 
+        session()->flash('status', 'User has been updated successfully.');
         return to_route('users.edit', compact('user'));
     }
 }

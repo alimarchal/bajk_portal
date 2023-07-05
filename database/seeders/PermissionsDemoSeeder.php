@@ -25,10 +25,17 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['name' => 'publish']);
         Permission::create(['name' => 'unpublish']);
 
+        Permission::create(['name' => 'Create Circular']);
+        Permission::create(['name' => 'Create Manuals']);
+        Permission::create(['name' => 'Create HRD']);
+        Permission::create(['name' => 'Create Downloads']);
+        Permission::create(['name' => 'Create Notice Board']);
+        Permission::create(['name' => 'Create Events']);
+
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'writer']);
         $role1->givePermissionTo('edit');
-        $role1->givePermissionTo('delete');
+//        $role1->givePermissionTo('delete');
 
         $role2 = Role::create(['name' => 'admin']);
         $role2->givePermissionTo('publish');

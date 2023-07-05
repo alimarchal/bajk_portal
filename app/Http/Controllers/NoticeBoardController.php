@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class NoticeBoardController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:Create Notice Board')->only('create');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -39,7 +44,7 @@ class NoticeBoardController extends Controller
         }
 
         $request->merge(['user_id' => Auth::user()->id]);
-        
+
         NoticeBoard::create($request->all());
         // Redirect or perform any additional actions
         return to_route('noticeBoard.index')->with('status', 'File has been uploaded successfully!');

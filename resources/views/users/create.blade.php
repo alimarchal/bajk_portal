@@ -35,6 +35,19 @@
                         </div>
 
                         <div class="mt-4">
+                            <label for="division_id" class="block mb-1">Division</label>
+                            <select id="division_id"
+                                    name="division_id"
+                                    class="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">None</option>
+                                @foreach(\App\Models\Division::all() as $division)
+                                    <option value="{{$division->id}}">{{$division->name}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                        <div class="mt-4">
                             <x-label for="password" value="{{ __('Password') }}" />
                             <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
                         </div>

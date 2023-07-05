@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class HrdController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:Create HRD')->only('create');
+    }
     /**
      * Display a listing of the resource.
      */

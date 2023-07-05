@@ -24,7 +24,20 @@
                             <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$user->email" required autocomplete="username" />
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mt-4">
+                            <label for="division_id" class="block mb-1">Division</label>
+                            <select id="division_id"
+                                    name="division_id"
+                                    class="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">None</option>
+                                @foreach(\App\Models\Division::all() as $division)
+                                    <option value="{{$division->id}}" @if($user->division_id == $division->id) selected @endif>{{$division->name}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                        <div class="mt-4">
                             <label for="permissions" class="block text-gray-700 text-sm font-bold mb-2">Permissions:</label>
 
 
@@ -40,6 +53,8 @@
                             <p class="text-red-500 text-xs italic mt-2">{{ $message }}</p>
                             @enderror
                         </div>
+
+
 
                         <div class="flex items-center justify-end mt-4">
                             <x-button class="ml-4">

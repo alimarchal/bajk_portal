@@ -11,6 +11,7 @@
                 <div class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
                     <x-validation-errors class="mb-4" />
 
+
                     @if (session('status'))
                         <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
                             {{ session('status') }}

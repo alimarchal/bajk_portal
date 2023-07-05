@@ -30,7 +30,7 @@ class User extends Authenticatable
 
 //    protected $guard_name = 'sanctum';
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','division_id'
     ];
 
     /**

@@ -34,6 +34,7 @@
 
             <!-- Page Content -->
             <main>
+                <x-status-message class="mb-4" />
                 {{ $slot }}
             </main>
         </div>

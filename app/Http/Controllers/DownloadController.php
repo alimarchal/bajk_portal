@@ -12,6 +12,12 @@ class DownloadController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('permission:Create Downloads')->only('create');
+        $this->middleware('permission:delete')->only('destroy');
+    }
     public function index()
     {
         $downloads = Download::where('category_id', 9)->get();

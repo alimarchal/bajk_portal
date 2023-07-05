@@ -4,11 +4,14 @@
             {{ __('Noticeboard') }}
         </h2>
 
-        <div class="flex justify-center items-center float-right">
-            <a href="{{route('noticeBoard.create')}}" class="flex items-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-gray-200 dark:border-gray-200  dark:hover:bg-gray-700 ml-2" title="Members List">
-                <span class="hidden md:inline-block ml-2">Create Notice</span>
-            </a>
-        </div>
+        @can('Create Notice Board')
+            <div class="flex justify-center items-center float-right">
+                <a href="{{route('noticeBoard.create')}}" class="flex items-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-gray-200 dark:border-gray-200  dark:hover:bg-gray-700 ml-2" title="Members List">
+                    <span class="hidden md:inline-block ml-2">Create Notice</span>
+                </a>
+            </div>
+        @endcan
+
     </x-slot>
 
     <div class="py-12">
