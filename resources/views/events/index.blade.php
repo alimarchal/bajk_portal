@@ -21,7 +21,7 @@
                 @foreach($events as $event)
                     <a href="{{ route('event.show', $event->id) }}"
                        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $event->title }}
+                        <h5 class="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">{{ $event->title }}
                             - {{ \Carbon\Carbon::parse($event->created_at)->diffForHumans() }}</h5>
                         <p class="font-normal text-gray-700 dark:text-gray-400">
                             {{ Str::limit(strip_tags($event->description), 150)}}

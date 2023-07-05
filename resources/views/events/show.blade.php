@@ -11,17 +11,17 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
+            <div
+                class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
                 <h2 class="text-black text-2xl text-center mb-2">
 
-                    {{ $event->title }} -  {{ \Carbon\Carbon::parse($event->created_at)->format('d-M-Y') }} - {{ Carbon\Carbon::parse($event->created_at)->diffForHumans() }}
+                    {{ $event->title }} - {{ \Carbon\Carbon::parse($event->created_at)->format('d-M-Y') }}
+                    - {{ Carbon\Carbon::parse($event->created_at)->diffForHumans() }}
                 </h2>
 
                 <p class="mb-8">
                     {!! $event->description !!}
                 </p>
-
-
 
 
                 <hr class="mt-8">
@@ -37,17 +37,23 @@
 
                         <div>
                             <a href="{{$collection->getUrl()}}" target="_blank">
-                                <img class="h-auto max-w-full rounded-lg" src="{{$collection->getUrl('preview')}}" alt="">
+                                <img class="h-auto max-w-full rounded-lg" src="{{$collection->getUrl('preview')}}"
+                                     alt="">
                             </a>
 
 
-                            <form action="{{route('event.destroy',[ $collection->id, $event->id])}}" method="post" class="mt-4">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out" onclick="if(confirm('Are you sure you want to delete this item?')){return true;}else{return false;}">
-                                    Delete
-                                </button>
-                            </form>
+                            @can('delete')
+                                <form action="{{route('event.destroy',[ $collection->id, $event->id])}}" method="post"
+                                      class="mt-4">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+                                            onclick="if(confirm('Are you sure you want to delete this item?')){return true;}else{return false;}">
+                                        Delete
+                                    </button>
+                                </form>
+                            @endcan
                         </div>
 
                     @endforeach
@@ -55,37 +61,42 @@
 
 
                 <br>
+                @can('delete')
+                    <hr class="mb-8 mt-16">
 
-                <hr class="mb-8 mt-16">
-
-                <form action="{{ route("event.update", $event->id) }}" method="POST" enctype="multipart/form-data" class="w-full mx-auto">
-                    @csrf
-                    @method('PUT')
-                    <x-validation-errors class="mb-4"/>
-                    <script>
-                        function isNumeric(event) {
-                            // Get the ASCII code of the key that was pressed
-                            var charCode = (event.which) ? event.which : event.keyCode;
-                            // If the key code is not a number, prevent the default action
-                            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                                event.preventDefault();
-                                return false;
+                    <form action="{{ route("event.update", $event->id) }}" method="POST" enctype="multipart/form-data"
+                          class="w-full mx-auto">
+                        @csrf
+                        @method('PUT')
+                        <x-validation-errors class="mb-4"/>
+                        <script>
+                            function isNumeric(event) {
+                                // Get the ASCII code of the key that was pressed
+                                var charCode = (event.which) ? event.which : event.keyCode;
+                                // If the key code is not a number, prevent the default action
+                                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                                    event.preventDefault();
+                                    return false;
+                                }
+                                return true;
                             }
-                            return true;
-                        }
-                    </script>
+                        </script>
 
 
-                    <div class="mt-4">
-                        <label for="document-dropzone" class="block text-gray-700 font-bold">Documents</label>
-                        <div class="mt-2 px-6 py-4 border border-gray-300 border-dashed rounded-md needsclick dropzone" id="document-dropzone">
+                        <div class="mt-4">
+                            <label for="document-dropzone" class="block text-gray-700 font-bold">Documents</label>
+                            <div
+                                class="mt-2 px-6 py-4 border border-gray-300 border-dashed rounded-md needsclick dropzone"
+                                id="document-dropzone">
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-4">
-                        <button class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600" type="submit">Update</button>
-                    </div>
-                </form>
-
+                        <div class="mt-4">
+                            <button class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600" type="submit">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                @endcanz
             </div>
 
         </div>
