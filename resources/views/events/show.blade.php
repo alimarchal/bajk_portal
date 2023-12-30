@@ -96,7 +96,7 @@
                             </button>
                         </div>
                     </form>
-                @endcanz
+                @endcan
             </div>
 
         </div>

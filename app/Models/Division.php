@@ -13,6 +13,6 @@ class Division extends Model
 
     public function circulars(): HasMany
     {
-        return $this->hasMany(Circular::class);
+        return $this->hasMany(Circular::class)->orderBy('created_at', 'desc');
     }
 }
